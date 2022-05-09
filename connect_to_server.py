@@ -5,6 +5,9 @@ def set_credentials():
     password = input("Password:")
     return [username, password]
 
+def delete_credentials(username, password):
+    username, password = None, None
+
 def connect(hostname: str, username: str, password: str):
     """
     Connects to a remote server using paramiko.
