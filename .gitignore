@@ -6,3 +6,6 @@ __pycache__/
 
 # Pycache
 .cpython-39.pyc
+
+#MacOS stuff
+.DS_store
