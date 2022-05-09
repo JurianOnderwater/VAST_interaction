@@ -24,7 +24,7 @@ class Send:
         self.ssh = connect(hostname=self.host, username=self.username, password=self.password)
         delete_credentials(self.username, self.password)                                        # Prevents user credentials from being saved
 
-    def set_destination(self, path: str):
+    def set_destination(self, path: str) -> None:
         """
         Sets the path to where the files are transferred.
         """
@@ -39,14 +39,11 @@ class Send:
         else:
             raise NameError('Oops, you did not yet set a destination folder!')
 
-    def transfer_file(self, buffer) -> None:
-        # check buffer for file to transfer at index = head
+    def transfer_file(self, buffer: circularBuffer) -> None:
         if (self.remote is not None):
             file = buffer.dequeue()
             self.ftp_client= self.ssh.open_sftp()
             self.ftp_client.put(localpath=file,remotefilepath=self.destination)
+            print(f'Transferred {file} to {self.destination}')
             self.ftp_client.close() 
             os.remove(file)                                     
-        # delete file from folder when it is transferred
-        # dequeue file
-        # raise NotImplementedError('This function has not been implemented yet, dumbass')

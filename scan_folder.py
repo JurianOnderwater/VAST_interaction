@@ -58,11 +58,12 @@ class Scan:
             raise NameError('Oops, you did not yet set a destination folder!')
 
     def scan_folder(self) -> None:
+        """"""
         print(os.listdir(self.origin))
         while True:
             for file in os.listdir(self.origin):                                                 # Check if this function does what it seems to do
                 if file not in self.buffer.queue:
-                    if file != '.DS_Store':
+                    if file != '.DS_Store':                 # MacOS specific thingy
                         self.buffer.enqueue(file)
                         print(self.buffer.queue)       
                 sleep(self.some_delay)
