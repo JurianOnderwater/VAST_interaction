@@ -58,7 +58,9 @@ class Scan:
             raise NameError('Oops, you did not yet set a destination folder!')
 
     def scan_folder(self) -> None:
-        """"""
+        """
+        Scans the origin folder and queues unqueued files for transfer.
+        """
         print(os.listdir(self.origin))
         while True:
             for file in os.listdir(self.origin):                                                 # Check if this function does what it seems to do
@@ -68,11 +70,5 @@ class Scan:
                         print(self.buffer.queue)       
                 sleep(self.some_delay)
             # raise NotImplementedError('This function has not been fully implemented yet, dumbass')
-
-
-    def transferable_files(self) -> list:                                                   #probably not needed
-        # self.buffer.display()
-        return self.buffer.queue
-        # raise NotImplementedError('This function has not been implemented yet, dumbass')
 
         
