@@ -33,6 +33,12 @@ class Send:
         else:
             raise NameError('You did not specify a pathname :(')
 
+    def print_destination(self):
+        if (self.destination is not None):
+            print(self.destination)
+        else:
+            raise NameError('Oops, you did not yet set a destination folder!')
+
     def transfer_file(self, buffer) -> None:
         # check buffer for file to transfer at index = head
         if (self.remote is not None):
