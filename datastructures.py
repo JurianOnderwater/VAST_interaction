@@ -1,16 +1,3 @@
-
-# class loggingList(list):
-#     """
-#     Look up how super works again
-#     """
-#     def __setitem__(self, index, value):
-#         print(f'Setting {value} at index {index}')
-#         super().__setitem__(index, value)
-    
-#     def append(self, value):
-#         print(f'Adding {value}')
-#         super().append(value)
-
 class circularBuffer:
     def __init__(self, max_size: int = 3) -> None:
         self.max_size = max_size
