@@ -1,6 +1,6 @@
 import os
 from datastructures import circularBuffer
-from connect_to_server import connect
+from connect_to_server import connect, set_credentials
 import paramiko
 
 class Send:
@@ -19,9 +19,8 @@ class Send:
         self.buffer = buffer
         self.host = None
         self.port = None
-        self.username = None
-        self.password = None
         self.destination = None
+        self.username,self.password = set_credentials()
         self.ssh = connect(hostname=self.host, username=self.username, password=self.password)
 
     def set_destination(self, path: str):
