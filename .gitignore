@@ -9,3 +9,6 @@ __pycache__/
 
 #MacOS stuff
 .DS_store
+
+#VSCode
+.code-workspace
