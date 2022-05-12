@@ -1,4 +1,20 @@
 class circularBuffer:
+    """
+    circularBuffer implements an array with dynamic start - and endpoint.\n
+    The head and tail are updated when putting an item on the queue and\n 
+    taking an item off of it. When the number of items in the queue grows\n
+    bigger than max_size, the oldest item is taken out of the queue and the\n
+    new item is placed on top.
+
+    --------
+    ### Arguments:
+    - max_size: int - The maximum number of items in the buffer at any point in time.
+
+    --------
+    ### Functions:
+    - dequeue(): Takes the oldest item off of the queue.
+    - enqueue(item): Puts item on top of the queue.
+    """
     def __init__(self, max_size: int = 3) -> None:
         self.max_size = max_size
         self.queue = [None] * max_size              # Make a list of max_size long

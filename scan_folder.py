@@ -103,8 +103,8 @@ class Scan:
             while True:
                 for file in os.listdir(self.origin):            # Check if this function does what it seems to do
                     if file not in self.buffer.queue:
-                        if file != '.DS_Store':                 # MacOS specific thingy
-                            self.buffer.enqueue(file)
+                        if file != '.DS_Store':                 # MacOS specific thingy. Has to do with folder metadata.
+                            self.buffer.enqueue(item=file)
                             print(self.buffer.queue)       
                     sleep(self.scanning_interval)
 
