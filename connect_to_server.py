@@ -15,13 +15,13 @@ def connect(hostname: str, username: str, password: str):
 
     --------
     ### Arguments:
-    - `hostname: str` - The hostname of the server you are connecting to.
-    - `username: str` - The username you are using to log into the server.
-    - `password: str` - The password you are using to log into the server
+    - `hostname (str)` - The hostname of the server you are connecting to.
+    - `username (str)` - The username you are using to log into the server.
+    - `password (str)` - The password you are using to log into the server
 
     --------
     #### Returns:
-    - A paramiko `SSHClient` object that has been connected to.
+    - A paramiko `.SSHClient` object that has been connected to.
     """
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())

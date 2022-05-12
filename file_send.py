@@ -11,7 +11,7 @@ class Send:
 
     --------
     ### Arguments:
-    - `buffer: circularBuffer` - This is a bufferobject used for dequeueing the files and send them
+    - `buffer (circularBuffer)` - This is a bufferobject used for dequeueing the files and send them
     --------
     ### Functions:
     - `set_destination(path: str)`: Sets the path to where the files are transferred.
@@ -36,7 +36,7 @@ class Send:
 
         --------
         Arguments:
-            `path: str` - filepath to the origin folder
+            `path (str)` - filepath to the origin folder
 
         --------
         Raises:

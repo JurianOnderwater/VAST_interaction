@@ -1,3 +1,4 @@
+
 class circularBuffer:
     """
     circularBuffer implements an array with dynamic start - and endpoint.\n
@@ -8,12 +9,12 @@ class circularBuffer:
 
     --------
     ### Arguments:
-    - max_size: int - The maximum number of items in the buffer at any point in time.
+    - `max_size (int)` - The maximum number of items in the buffer at any point in time.
 
     --------
     ### Functions:
-    - dequeue(): Takes the oldest item off of the queue.
-    - enqueue(item): Puts item on top of the queue.
+    - `dequeue()`: Takes the oldest item off of the queue.
+    - `enqueue(item)`: Puts item on top of the queue.
     """
     def __init__(self, max_size: int = 3) -> None:
         self.max_size = max_size
@@ -42,16 +43,3 @@ class circularBuffer:
         self.queue[self.tail] = item
         self.size += 1
     
-    # def display(self):
-    #     if self.size == 0:
-    #         print('Queue is empty')
-    #     else: 
-    #         index = self.head
-    #         for _ in range(self.size):
-    #             print(self.queue[index])
-    #             index = (index + 1) % self.max_size
-
-# test = loggingList()
-# test.append('test')
-# print(test)
-# test[0] = 'changed'
