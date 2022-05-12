@@ -1,8 +1,6 @@
 import os
-from time import time, sleep
-from types import NoneType
+from time import sleep
 from datastructures import circularBuffer
-from file_send import Send
 
 class Scan:
     """
