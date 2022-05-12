@@ -18,6 +18,8 @@ class Send:
     - print_destination(): Prints the filepath to the destination folder on the server
     - transfer_file():
     """
+
+    
     def __init__(self, buffer: circularBuffer) -> None:
         self.buffer = buffer
         self.host = None
@@ -26,6 +28,7 @@ class Send:
         self.username,self.password = set_credentials()                                         # Take user input as username and password
         self.ssh = connect(hostname=self.host, username=self.username, password=self.password)
         delete_credentials(self.username, self.password)                                        # Prevents user credentials from being saved
+
 
     def set_destination(self, path: str) -> None:
         """
