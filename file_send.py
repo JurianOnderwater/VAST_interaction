@@ -11,12 +11,12 @@ class Send:
 
     --------
     ### Arguments:
-    - buffer: circularBuffer - This is a bufferobject used for dequeueing the files and send them
+    - `buffer: circularBuffer` - This is a bufferobject used for dequeueing the files and send them
     --------
     ### Functions:
-    - set_destination(path: str): Sets the path to where the files are transferred.
-    - print_destination(): Prints the filepath to the destination folder on the server
-    - transfer_file():
+    - `set_destination(path: str)`: Sets the path to where the files are transferred.
+    - `print_destination()`: Prints the filepath to the destination folder on the server
+    - `transfer_file()`:
     """
 
     
@@ -36,11 +36,11 @@ class Send:
 
         --------
         Arguments:
-            path: str - filepath to the origin folder
+            `path: str` - filepath to the origin folder
 
         --------
         Raises:
-            TypeError - When no path is provided
+            `TypeError` - When no path is provided
         """
         if (path is None):
             raise TypeError('You did not specify a pathname :(')
@@ -53,7 +53,7 @@ class Send:
 
         --------
         Raises:
-            NameError - When path is not set yet
+            `NameError` - When path is not set yet
         """
         if (self.destination is None):
             raise NameError('Oops, you did not yet set a destination folder!')            
@@ -69,7 +69,7 @@ class Send:
 
         --------
         Raises:
-            NameError - When path is not set yet
+            `NameError` - When path is not set yet
         """
         if (self.remote is None):
             raise NameError('The destination folder has not yet been set!')
