@@ -1,12 +1,13 @@
 import paramiko
 
 def set_credentials():
-    username = input("Username:")
-    password = input("Password:")
-    return [username, password]
+    hostname = str(input("Hostname:"))
+    username = str(input("Username:"))
+    password = str(input("Password:"))
+    return [hostname,username, password]
 
-def delete_credentials(username, password):
-    username, password = None, None
+def delete_credentials(hostname, username, password):
+    hostname, username, password = None, None
     pass
 
 def connect(hostname: str, username: str, password: str):

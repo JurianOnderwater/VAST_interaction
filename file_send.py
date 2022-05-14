@@ -22,11 +22,11 @@ class Send:
     
     def __init__(self, buffer: circularBuffer) -> None:
         self.buffer = buffer
-        self.host = None
-        self.port = None
+        # self.host = None
+        # self.port = None
         self.destination = None
-        self.username,self.password = set_credentials()                                         # Take user input as username and password
-        self.ssh = connect(hostname=self.host, username=self.username, password=self.password)
+        self.hostname, self.username,self.password = set_credentials()                                         # Take user input as username and password
+        self.ssh = connect(hostname=self.hostname, username=self.username, password=self.password)
         delete_credentials(self.username, self.password)                                        # Prevents user credentials from being saved
 
 
@@ -77,7 +77,7 @@ class Send:
             while self.buffer.size():
                 file = self.buffer.dequeue()
                 self.ftp_client= self.ssh.open_sftp()
-                self.ftp_client.put(localpath=file,remotefilepath=self.destination)
+                self.ftp_client.put(localpath=file,remotefilepath=self.destination, confirm=True)
                 print(f'Transferred {file} to {self.destination}')
                 self.ftp_client.close() 
                 os.remove(file)                                     
