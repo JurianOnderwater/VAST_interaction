@@ -1,7 +1,7 @@
 import os
 from datastructures import circularBuffer
 from connect_to_server import connect, set_credentials, delete_credentials
-import paramiko
+from time import sleep
 
 class Send:
     """
@@ -27,10 +27,10 @@ class Send:
         self.destination = None
         self.hostname, self.username,self.password = set_credentials()                                         # Take user input as username and password
         self.ssh = connect(hostname=self.hostname, username=self.username, password=self.password)
-        delete_credentials(self.username, self.password)                                        # Prevents user credentials from being saved
+        delete_credentials(self.hostname, self.username, self.password)                                        # Prevents user credentials from being saved
 
 
-    def set_destination(self, path: str) -> None:
+    def set_destination(self, *args: str) -> None:
         """
         Sets the destination folder filepath
 
@@ -42,10 +42,10 @@ class Send:
         Raises:
             `TypeError` - When no path is provided
         """
-        if (path is None):
-            raise TypeError('You did not specify a pathname :(')
+        if (len(args) == 0):
+            self.destination = input('Destination folder:')
         else:
-            self.destination = path
+            self.destination = args
 
     def print_destination(self):
         """
@@ -60,7 +60,7 @@ class Send:
         else:
             print(self.destination)
 
-    def transfer_file(self) -> None:
+    def transfer_files(self) -> None:
         """
         Transfers queued files to the remote server destination folder.\n
         The file transfer protocol is opened, the file transferred, and the\n
@@ -71,13 +71,17 @@ class Send:
         Raises:
             `NameError` - When path is not set yet
         """
+        sleep(2)
+        print('test1')
         if (self.remote is None):
             raise NameError('The destination folder has not yet been set!')
         else:
+            self.ftp_client = self.ssh.open_sftp()
             while self.buffer.size():
+                print('test2')
                 file = self.buffer.dequeue()
-                self.ftp_client= self.ssh.open_sftp()
+                
                 self.ftp_client.put(localpath=file,remotefilepath=self.destination, confirm=True)
                 print(f'Transferred {file} to {self.destination}')
-                self.ftp_client.close() 
-                os.remove(file)                                     
+                os.remove(file)  
+            self.ftp_client.close()                                    
