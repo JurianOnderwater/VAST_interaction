@@ -37,11 +37,14 @@ class circularBuffer:
         self.size -= 1
         return tmp
         
-    def enqueue(self, item):
-        item_size = os.path.getsize(item)
+    def enqueue(self, origin, item):
+        try:
+            timeout = (os.path.getsize(origin + '/' + item))/self.network_speed
+        except FileNotFoundError:
+            timeout = 0
         self.tail += 1
         if self.size == self.max_size:
-            sleep(item_size/self.network_speed)
+            sleep(timeout)
             self.tail = (self.tail) % self.max_size
             self.dequeue()
         self.queue[self.tail] = item
