@@ -7,7 +7,7 @@ def set_credentials():
     return [hostname,username, password]
 
 def delete_credentials(hostname, username, password):
-    hostname, username, password = None, None
+    hostname, username, password = None, None, None
     pass
 
 def connect(hostname: str, username: str, password: str):
