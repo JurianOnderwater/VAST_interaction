@@ -20,17 +20,20 @@ class Send:
     """
 
     
-    def __init__(self, buffer: circularBuffer) -> None:
+    def __init__(self, buffer: circularBuffer, testing: bool) -> None:
         self.buffer = buffer
         # self.host = None
         # self.port = None
         self.destination = None
-        self.hostname, self.username,self.password = set_credentials()                                         # Take user input as username and password
-        self.ssh = connect(hostname=self.hostname, username=self.username, password=self.password)
-        delete_credentials(self.hostname, self.username, self.password)                                        # Prevents user credentials from being saved
+        if testing:
+            self.ssh = connect(hostname='ssh.liacs.nl', username='s2649438', password='A3loA2loA1lo@')
+        else:
+            self.hostname, self.username,self.password = set_credentials()                                         # Take user input as username and password
+            self.ssh = connect(hostname=self.hostname, username=self.username, password=self.password)
+            delete_credentials(self.hostname, self.username, self.password)                                        # Prevents user credentials from being saved
 
 
-    def set_destination(self, *args: str) -> None:
+    def set_destination(self, path: str) -> None:
         """
         Sets the destination folder filepath
 
@@ -42,10 +45,7 @@ class Send:
         Raises:
             `TypeError` - When no path is provided
         """
-        if (len(args) == 0):
-            self.destination = input('Destination folder:')
-        else:
-            self.destination = args
+        self.destination = path
 
     def print_destination(self):
         """
@@ -71,17 +71,16 @@ class Send:
         Raises:
             `NameError` - When path is not set yet
         """
-        sleep(2)
-        print('test1')
-        if (self.remote is None):
+        sleep(0.2)
+        if (self.destination is None):
             raise NameError('The destination folder has not yet been set!')
         else:
             self.ftp_client = self.ssh.open_sftp()
-            while self.buffer.size():
-                print('test2')
+            while self.buffer.size >= 1:
                 file = self.buffer.dequeue()
-                
-                self.ftp_client.put(localpath=file,remotefilepath=self.destination, confirm=True)
+                remotepath = self.destination + '/' + file
+                file = 'test/' + file
+                self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
                 print(f'Transferred {file} to {self.destination}')
                 os.remove(file)  
-            self.ftp_client.close()                                    
+            self.ftp_client.close()                                     
