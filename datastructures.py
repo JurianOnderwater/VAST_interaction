@@ -1,7 +1,14 @@
 from time import sleep
 import os
 
-class circularBuffer:
+class buffer:
+    def __init__(self, max_size: int) -> None:
+        self.max_size = max_size
+        self.queue = [None] * max_size
+        self.size = 0
+        pass
+
+class circularBuffer(buffer):
     """
     circularBuffer implements an array with dynamic start - and endpoint.\n
     The head and tail are updated when putting an item on the queue and\n 
@@ -18,13 +25,14 @@ class circularBuffer:
     - `dequeue()`: Takes the oldest item off of the queue.
     - `enqueue(item)`: Puts item on top of the queue.
     """
-    def __init__(self, max_size: int = 3) -> None:
-        self.max_size = max_size
-        self.queue = [None] * max_size              # Make a list of max_size long
+    def __init__(self) -> None:
+        # self.max_size = max_size
+        # self.queue = [None] * max_size              # Make a list of max_size long
+
         # self.second_chances = [0] * max_size        # Keep track of the second chances per item in the queue
         self.tail = -1                              # Indicates where the newest item in the queue is
         self.head = 0                               # Indicates where the olderst item in the queue is
-        self.size = 0                               # Current size of the list  
+        # self.size = 0                               # Current size of the list  
         self.network_speed = 20                     # Estimated speed of the connection  
 
     def dequeue(self):
@@ -39,7 +47,7 @@ class circularBuffer:
         
     def enqueue(self, origin, item):
         try:
-            timeout = (os.path.getsize(origin + '/' + item))/self.network_speed
+            timeout = (os.path.getsize(origin + '/' + item))/self.network_speed # For now network speed has to be checked manually
         except FileNotFoundError:
             timeout = 0
         self.tail += 1
@@ -50,12 +58,45 @@ class circularBuffer:
         self.queue[self.tail] = item
         self.size += 1
 
-    # def replace(self, new_item):
-    #     while self.R[self.head] == 1:
-    #         self.R[self.head] = 0
-    #         self.head = (self.head + 1) % self.max_size
-    #     old_item = self.queue[self.head]
-    #     self.queue[self.head] = new_item
-    #     self.R[self.head] = 1
-    #     return new_item
+
+class clockBuffer(buffer):
+    """
+    Some description
+    """
+    def __init__(self) -> None:
+        pass
+
+    def dequeue(self):
+        raise NotImplementedError('Not implemented yet')
+
+    def enqueue(self, origin, item):
+        raise NotImplementedError('Not implemented yet')
+
+class secondChanceBuffer(buffer):
+    """
+    Some description
+    """
+    def __init__(self) -> None:
+        pass
+
+    def dequeue(self):
+        raise NotImplementedError('Not implemented yet')
+
+    def enqueue(self, origin, item):
+        raise NotImplementedError('Not implemented yet')
+
+
+class LRUBuffer(buffer):
+    """
+    Some description
+    """
+    def __init__(self) -> None:
+        self.lru = 0
+        pass
+
+    def dequeue(self):
+        raise NotImplementedError('Not implemented yet')
+
+    def enqueue(self, origin, item):
+        raise NotImplementedError('Not implemented yet')
     

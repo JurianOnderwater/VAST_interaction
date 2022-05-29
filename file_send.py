@@ -1,7 +1,8 @@
 import os
-from datastructures import circularBuffer
+from datastructures import *
 from connect_to_server import connect, set_credentials, delete_credentials
 from time import sleep
+# from typing import Type # might need for typing with subclasses.
 
 class Send:
     """
@@ -20,7 +21,7 @@ class Send:
     """
 
     
-    def __init__(self, buffer: circularBuffer, testing: bool) -> None:
+    def __init__(self, buffer: buffer, testing: bool) -> None: # check if buffer here also works for classes that inherint from buffer
         self.buffer = buffer
         # self.host = None
         # self.port = None
