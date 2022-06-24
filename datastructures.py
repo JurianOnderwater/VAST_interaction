@@ -77,13 +77,39 @@ class secondChanceBuffer(buffer):
     Some description
     """
     def __init__(self) -> None:
+        self.visited = [0] * self.max_size
         pass
 
     def dequeue(self):
-        raise NotImplementedError('Not implemented yet')
+        if self.size == 0:
+            print('The queue is empty')
+            return
+        else: 
+            tmp = self.queue[self.head]
+            self.visited[self.head] = 0
+            self.head = (self.head + 1) % self.max_size
+        self.size -= 1
+        return tmp
+        # raise NotImplementedError('Not implemented yet')
 
-    def enqueue(self, origin, item):
-        raise NotImplementedError('Not implemented yet')
+    def enqueue(self, item):
+        self.tail += 1
+        if self.size == self.max_size:
+            self.tail = (self.tail) % self.max_size
+            if self.visited[self.tail] == 1:
+                self.dequeue()
+                self.queue[self.tail] = item
+                self.size += 1
+                return
+            else:
+                self.visited[self.tail] = 1
+                self.enqueue(self,item)
+        else:
+            self.queue[self.tail] = item
+            self.size += 1
+            return
+
+        # raise NotImplementedError('Not implemented yet')
 
 
 class LRUBuffer(buffer):
