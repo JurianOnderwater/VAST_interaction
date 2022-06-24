@@ -1,4 +1,4 @@
-from tarfile import FIFOTYPE
+import random
 from time import sleep
 import os
 
@@ -242,4 +242,52 @@ class spacingBuffer(buffer):
             itemnr += 1
             return
 
-    
+class randomBuffer(buffer):
+    """
+    randomBuffer implements an array with dynamic start - and endpoint.\n
+    The head and tail are updated when putting an item on the queue and\n 
+    taking an item off of it. When the number of items in the queue grows\n
+    bigger than max_size, the `enqueue()` deletes a random item and replaces \n
+    it with the new one.
+
+    --------
+    ### Arguments:
+    - `seed (int)` - The seed for RNG.
+    - `max_size (int)` - The maximum number of items in the buffer at any point in time.
+
+    --------
+    ### Functions:
+    - `dequeue()`: Takes the oldest item off of the queue.
+    - `enqueue(item)`: Puts item on top of the queue and checks which item should be taken off.
+    """
+    def __init__(self, seed: int = 42) -> None:
+        self.previous_deletion: int = 0
+        random.seed                 = seed
+        pass
+
+    def dequeue(self):
+        if self.size == 0:
+            print('The queue is empty')
+            return
+        else: 
+            tmp = self.queue[self.head]
+            self.head = (self.head + 1) % self.max_size
+        self.size -= 1
+        return tmp
+
+    def enqueue(self, item):
+        self.tail += 1
+        if self.size == self.max_size:
+            self.head = random.randint(self.max_size)
+            self.dequeue()
+            self.queue[self.tail] = item
+            self.size += 1
+
+            return
+        else:
+            self.queue[self.tail] = item
+            self.size += 1
+            itemnr += 1
+            return
+
+        

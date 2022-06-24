@@ -4,8 +4,6 @@ from connect_to_server import *
 from datastructures import circularBuffer
 from threading import Thread
 
-def test():
-    print('venividivici')
 
 if __name__ == '__main__':
     buffer = circularBuffer()
