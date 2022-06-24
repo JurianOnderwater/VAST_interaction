@@ -93,7 +93,7 @@ class timedBuffer(buffer):
         self.size -= 1
         return tmp
         
-    def enqueue(self, origin, item):
+    def enqueue(self, item, origin = None):
         try:
             timeout = (os.path.getsize(origin + '/' + item))/self.network_speed # For now network speed has to be checked manually
         except FileNotFoundError:
