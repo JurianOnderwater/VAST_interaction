@@ -199,6 +199,7 @@ class spacingBuffer(buffer):
 
     --------
     ### Arguments:
+    - `spacing (int)` - The minimum amount of uploads between two deletions.
     - `max_size (int)` - The maximum number of items in the buffer at any point in time.
 
     --------
