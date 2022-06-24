@@ -174,7 +174,7 @@ class secondChanceBuffer(buffer):
         # raise NotImplementedError('Not implemented yet')
 
 
-class LRUBuffer(buffer):
+class lruBuffer(buffer):
     """
     Some description
     """
@@ -187,4 +187,60 @@ class LRUBuffer(buffer):
 
     def enqueue(self, origin, item):
         raise NotImplementedError('Not implemented yet')
+
+class spacingBuffer(buffer):
+    """
+    spacingBuffer implements an array with dynamic start - and endpoint.\n
+    The head and tail are updated when putting an item on the queue and\n 
+    taking an item off of it. When the number of items in the queue grows\n
+    bigger than max_size, the `enqueue()` deletes the oldest item that has \n
+    a space of at least `spacing` between it and the last deleted item, and \n 
+    the new item is placed on top.
+
+    --------
+    ### Arguments:
+    - `max_size (int)` - The maximum number of items in the buffer at any point in time.
+
+    --------
+    ### Functions:
+    - `dequeue()`: Takes the oldest item off of the queue.
+    - `enqueue(item)`: Puts item on top of the queue and checks which item should be taken off.
+    """
+    def __init__(self, spacing: int = 5) -> None:
+        self.previous_deletion = 0
+        self.itemnr = 0
+        self.spacing = spacing
+        pass
+
+    def dequeue(self):
+        if self.size == 0:
+            print('The queue is empty')
+            return
+        else: 
+            tmp = self.queue[self.head]
+            self.head = (self.head + 1) % self.max_size
+        self.size -= 1
+        return tmp
+        # raise NotImplementedError('Not implemented yet')
+
+    def enqueue(self, item):
+        self.tail += 1
+        if self.size == self.max_size:
+            self.tail = (self.tail) % self.max_size
+            if self.itemnr - self.previous_deletion >= self.spacing:
+                self.previous_deletion = self.itemnr
+                self.dequeue()
+                self.queue[self.tail] = item
+                self.size += 1
+                self.itemnr += 1
+                return
+            else:
+                self.enqueue(self,item)
+                self.itemnr += 1
+        else:
+            self.queue[self.tail] = item
+            self.size += 1
+            itemnr += 1
+            return
+
     
