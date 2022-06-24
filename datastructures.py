@@ -31,10 +31,10 @@ class fifoBuffer(buffer):
         # self.queue = [None] * max_size              # Make a list of max_size long
 
         # self.second_chances = [0] * max_size        # Keep track of the second chances per item in the queue
-        self.tail = -1                              # Indicates where the newest item in the queue is
-        self.head = 0                               # Indicates where the olderst item in the queue is
+        self.tail          = -1                       # Indicates where the newest item in the queue is
+        self.head          = 0                        # Indicates where the olderst item in the queue is
         # self.size = 0                               # Current size of the list  
-        self.network_speed = 20                     # Estimated speed of the connection  
+        self.network_speed = 20                       # Estimated speed of the connection  
 
     def dequeue(self):
         if self.size == 0:
@@ -78,10 +78,10 @@ class timedBuffer(buffer):
         # self.queue = [None] * max_size              # Make a list of max_size long
 
         # self.second_chances = [0] * max_size        # Keep track of the second chances per item in the queue
-        self.tail = -1                              # Indicates where the newest item in the queue is
-        self.head = 0                               # Indicates where the olderst item in the queue is
+        self.tail          = -1                       # Indicates where the newest item in the queue is
+        self.head          = 0                        # Indicates where the olderst item in the queue is
         # self.size = 0                               # Current size of the list  
-        self.network_speed = 20                     # Estimated speed of the connection  
+        self.network_speed = 20                       # Estimated speed of the connection  
 
     def dequeue(self):
         if self.size == 0:
@@ -207,9 +207,9 @@ class spacingBuffer(buffer):
     - `enqueue(item)`: Puts item on top of the queue and checks which item should be taken off.
     """
     def __init__(self, spacing: int = 5) -> None:
-        self.previous_deletion = 0
-        self.itemnr = 0
-        self.spacing = spacing
+        self.previous_deletion: int = 0
+        self.itemnr: int            = 0
+        self.spacing                = spacing
         pass
 
     def dequeue(self):
