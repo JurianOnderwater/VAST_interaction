@@ -2,15 +2,9 @@ import random
 from time import sleep
 import os
 
-class buffer:
-    def __init__(self, max_size: int, origin: str = None) -> None:
-        self.max_size = max_size
-        self.queue = [None] * max_size
-        self.size = 0
-        self.origin = origin
-        pass
 
-class fifoBuffer(buffer):
+
+class fifoBuffer():
     """
     fifoBuffer implements an array with dynamic start - and endpoint.\n
     The head and tail are updated when putting an item on the queue and\n 
@@ -27,7 +21,7 @@ class fifoBuffer(buffer):
     - `dequeue()`: Takes the oldest item off of the queue.
     - `enqueue(item)`: Puts item on top of the queue.
     """
-    def __init__(self) -> None:
+    def __init__(self, max_size:int=5) -> None:
         # self.max_size = max_size
         # self.queue = [None] * max_size              # Make a list of max_size long
 
@@ -35,7 +29,9 @@ class fifoBuffer(buffer):
         self.tail          = -1                       # Indicates where the newest item in the queue is
         self.head          = 0                        # Indicates where the olderst item in the queue is
         # self.size = 0                               # Current size of the list  
-        self.network_speed = 20                       # Estimated speed of the connection  
+        self.size          = 0
+        self.max_size      = max_size
+        self.queue         = [None] * max_size
 
     def dequeue(self):
         if self.size == 0:
@@ -47,7 +43,7 @@ class fifoBuffer(buffer):
         self.size -= 1
         return tmp
         
-    def enqueue(self, item):
+    def enqueue(self, item, origin):
         
         self.tail += 1
         if self.size == self.max_size:
@@ -56,7 +52,7 @@ class fifoBuffer(buffer):
         self.queue[self.tail] = item
         self.size += 1
 
-class timedBuffer(buffer):
+class timedBuffer():
     """
     timedBuffer implements an array with dynamic start - and endpoint.\n
     The head and tail are updated when putting an item on the queue and\n 
@@ -76,10 +72,13 @@ class timedBuffer(buffer):
     - `enqueue(item, origin)`: Puts item on top of the queue. Origin is set as optional, but \n
          this is merely for implementation reasons. You should really set a value.
     """
-    def __init__(self) -> None:
+    def __init__(self, max_size:int=5) -> None:
         self.tail          = -1                       # Indicates where the newest item in the queue is
         self.head          = 0                        # Indicates where the olderst item in the queue is
         self.network_speed = 20                       # Estimated speed of the connection Mb/sec
+        self.size          = 0
+        self.max_size      = max_size
+        self.queue         = [None] * max_size
 
     def dequeue(self):
         if self.size == 0:
@@ -87,25 +86,31 @@ class timedBuffer(buffer):
             return
         else: 
             tmp = self.queue[self.head]
+            self.queue[self.head] = None
             self.head = (self.head + 1) % self.max_size
         self.size -= 1
         return tmp
         
-    def enqueue(self, item):
+    def enqueue(self, origin, item):
         try:
-            timeout = (os.path.getsize(self.origin + '/' + item))/self.network_speed # For now network speed has to be checked manually
+            timeout = (os.path.getsize(origin + '/' + item))/self.network_speed # For now network speed has to be checked manually
         except FileNotFoundError:
             timeout = 0
         self.tail += 1
+        self.size += 1
         if self.size == self.max_size:
             sleep(timeout)
-            self.tail = (self.tail) % self.max_size
+            self.tail = self.tail % self.max_size
             self.dequeue()
-        self.queue[self.tail] = item
-        self.size += 1
+        try:
+            self.queue[self.tail] = item
+        except:
+            self.tail = self.tail%self.max_size   
+            self.tail = self.tail % self.max_size
+            print(self.tail)            
 
 
-class clockBuffer(buffer):
+class clockBuffer():
     """
     Some description
     """
@@ -118,7 +123,7 @@ class clockBuffer(buffer):
     def enqueue(self, origin, item):
         raise NotImplementedError('Not implemented yet')
 
-class secondChanceBuffer(buffer):
+class secondChanceBuffer():
     """
     secondChanceBuffer implements an array with dynamic start - and endpoint.\n
     The head and tail are updated when putting an item on the queue and\n 
@@ -136,9 +141,13 @@ class secondChanceBuffer(buffer):
     - `dequeue()`: Takes the oldest item off of the queue.
     - `enqueue(item)`: Puts item on top of the queue and checks which item should be taken off.
     """
-    def __init__(self) -> None:
-        self.visited = [0] * self.max_size
-        pass
+    def __init__(self, max_size: int=5) -> None:
+        self.visited = [0] * max_size
+        self.size          = 0
+        self.max_size      = max_size
+        self.queue         = [None] * max_size
+        self.head          = 0
+        self.tail          = -1
 
     def dequeue(self):
         if self.size == 0:
@@ -152,7 +161,7 @@ class secondChanceBuffer(buffer):
         return tmp
         # raise NotImplementedError('Not implemented yet')
 
-    def enqueue(self, item):
+    def enqueue(self, item, origin):
         self.tail += 1
         if self.size == self.max_size:
             self.tail = (self.tail) % self.max_size
@@ -172,12 +181,15 @@ class secondChanceBuffer(buffer):
         # raise NotImplementedError('Not implemented yet')
 
 
-class lruBuffer(buffer):
+class lruBuffer():
     """
     Some description
     """
-    def __init__(self) -> None:
+    def __init__(self, max_size:int = 5) -> None:
         self.lru = 0
+        self.size          = 0
+        self.max_size      = max_size
+        self.queue         = [None] * max_size
         pass
 
     def dequeue(self):
@@ -186,7 +198,7 @@ class lruBuffer(buffer):
     def enqueue(self, origin, item):
         raise NotImplementedError('Not implemented yet')
 
-class spacingBuffer(buffer):
+class spacingBuffer():
     """
     spacingBuffer implements an array with dynamic start - and endpoint.\n
     The head and tail are updated when putting an item on the queue and\n 
@@ -205,10 +217,13 @@ class spacingBuffer(buffer):
     - `dequeue()`: Takes the oldest item off of the queue.
     - `enqueue(item)`: Puts item on top of the queue and checks which item should be taken off.
     """
-    def __init__(self, spacing: int = 5) -> None:
+    def __init__(self, max_size:int = 5, spacing: int = 3) -> None:
         self.previous_deletion: int = 0
         self.itemnr: int            = 0
         self.spacing                = spacing
+        self.size                   = 0
+        self.max_size               = max_size
+        self.queue                  = [None] * max_size
         pass
 
     def dequeue(self):
@@ -242,7 +257,7 @@ class spacingBuffer(buffer):
             itemnr += 1
             return
 
-class randomBuffer(buffer):
+class randomBuffer():
     """
     randomBuffer implements an array with dynamic start - and endpoint.\n
     The head and tail are updated when putting an item on the queue and\n 
@@ -260,9 +275,12 @@ class randomBuffer(buffer):
     - `dequeue()`: Takes the oldest item off of the queue.
     - `enqueue(item)`: Puts item on top of the queue and checks which item should be taken off.
     """
-    def __init__(self, seed: int = 42) -> None:
+    def __init__(self, max_size : int=5, seed: int = 42) -> None:
         self.previous_deletion: int = 0
         random.seed                 = seed
+        self.size                   = 0
+        self.max_size               = max_size
+        self.queue                  = [None] * max_size
         pass
 
     def dequeue(self):
