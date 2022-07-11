@@ -1,6 +1,6 @@
 import os
 from time import sleep
-from datastructures import circularBuffer
+from datastructures import *
 
 class Scan:
     """
@@ -19,7 +19,7 @@ class Scan:
     - `print_destination()`: prints the filepath to the destination folder
     - `scan_folder()`: scans the origin folder and queues unqueued files for transfer.
     """
-    def __init__(self, buffer: circularBuffer, scanning_interval: float = 0.1) -> None:
+    def __init__(self, buffer, scanning_interval: float = 0.1) -> None:
         self.origin = None
         self.destination  = None
         self.scanning_interval = scanning_interval

@@ -21,7 +21,7 @@ class Send:
     """
 
     
-    def __init__(self, buffer: buffer, testing: bool) -> None: # check if buffer here also works for classes that inherint from buffer
+    def __init__(self, buffer, testing: bool) -> None: # check if buffer here also works for classes that inherint from buffer
         self.buffer = buffer
         # self.host = None
         # self.port = None
@@ -84,4 +84,4 @@ class Send:
                 self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
                 print(f'Transferred {file} to {self.destination}')
                 os.remove(file)  
-            self.ftp_client.close()                                     
+            self.ftp_client.close()                                 

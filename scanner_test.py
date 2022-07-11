@@ -1,12 +1,12 @@
 from scan_folder import Scan
 from file_send import Send
 from connect_to_server import *
-from datastructures import circularBuffer
+from datastructures import *
 from threading import Thread
 
 
 if __name__ == '__main__':
-    buffer = circularBuffer()
+    buffer = timedBuffer()
 
     scanner = Scan(buffer=buffer)
     sender = Send(buffer=buffer, testing=True)
