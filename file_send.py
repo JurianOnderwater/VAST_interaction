@@ -80,7 +80,7 @@ class Send:
             while self.buffer.size >= 1:
                 file = self.buffer.dequeue()
                 remotepath = self.destination + '/' + file
-                file = 'test/' + file
+                file = '/Volumes/Homework/MacOS/Documents/Bachelor thesis/transfer_1519719_files_17898fcd/test/' + file
                 self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
                 print(f'Transferred {file} to {self.destination}')
                 os.remove(file)  

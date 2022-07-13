@@ -97,17 +97,13 @@ class timedBuffer():
         except FileNotFoundError:
             timeout = 0
         self.tail += 1
-        self.size += 1
+        self.tail %= self.max_size
+        
         if self.size == self.max_size:
             sleep(timeout)
-            self.tail = self.tail % self.max_size
             self.dequeue()
-        try:
-            self.queue[self.tail] = item
-        except:
-            self.tail = self.tail%self.max_size   
-            self.tail = self.tail % self.max_size
-            print(self.tail)            
+        self.queue[self.tail] = item 
+        self.size += 1       
 
 
 class clockBuffer():
@@ -163,8 +159,9 @@ class secondChanceBuffer():
 
     def enqueue(self, item, origin):
         self.tail += 1
+        self.tail %= self.max_size
         if self.size == self.max_size:
-            self.tail = (self.tail) % self.max_size
+            # self.tail = (self.tail) % self.max_size
             if self.visited[self.tail] == 1:
                 self.dequeue()
                 self.queue[self.tail] = item
@@ -219,12 +216,13 @@ class spacingBuffer():
     """
     def __init__(self, max_size:int = 5, spacing: int = 3) -> None:
         self.previous_deletion: int = 0
-        self.itemnr: int            = 0
+        self.itemnr                 = 0
         self.spacing                = spacing
         self.size                   = 0
         self.max_size               = max_size
         self.queue                  = [None] * max_size
-        pass
+        self.tail                   = -1
+        self.head                   = 0
 
     def dequeue(self):
         if self.size == 0:
@@ -237,10 +235,11 @@ class spacingBuffer():
         return tmp
         # raise NotImplementedError('Not implemented yet')
 
-    def enqueue(self, item):
+    def enqueue(self, item, origin):
         self.tail += 1
+        self.tail %= self.max_size
         if self.size == self.max_size:
-            self.tail = (self.tail) % self.max_size
+            # self.tail = (self.tail) % self.max_size
             if self.itemnr - self.previous_deletion >= self.spacing:
                 self.previous_deletion = self.itemnr
                 self.dequeue()
@@ -254,7 +253,7 @@ class spacingBuffer():
         else:
             self.queue[self.tail] = item
             self.size += 1
-            itemnr += 1
+            self.itemnr += 1
             return
 
 class randomBuffer():
@@ -281,6 +280,8 @@ class randomBuffer():
         self.size                   = 0
         self.max_size               = max_size
         self.queue                  = [None] * max_size
+        self.head = 0
+        self.tail = -1
         pass
 
     def dequeue(self):
@@ -293,19 +294,20 @@ class randomBuffer():
         self.size -= 1
         return tmp
 
-    def enqueue(self, item):
+    def enqueue(self, item, origin):
         self.tail += 1
+        self.tail %= self.max_size
         if self.size == self.max_size:
             self.head = random.randint(self.max_size)
-            self.dequeue()
-            self.queue[self.tail] = item
+            # self.dequeue()
+            self.queue[self.head] = item
             self.size += 1
 
             return
         else:
             self.queue[self.tail] = item
             self.size += 1
-            itemnr += 1
+            # itemnr += 1
             return
 
         

@@ -105,7 +105,9 @@ class Scan:
                     if file not in self.buffer.queue:
                         if file != '.DS_Store':                 # MacOS specific thingy. Has to do with folder metadata.
                             self.buffer.enqueue(origin=self.origin, item=file)
-                            print(self.buffer.queue)       
+                            try: print('current queue: {queue}, current tail: {tail}'.format(queue=self.buffer.queue, tail=self.buffer.tail))
+                            except: print('current queue: {}'.format(self.buffer.queue))       
+                            
                     sleep(self.scanning_interval)
 
         
