@@ -6,11 +6,11 @@ from threading import Thread
 
 
 if __name__ == '__main__':
-    buffer = timedBuffer(max_size=5)
+    buffer = timedBuffer(max_size=20)
 
     scanner = Scan(buffer=buffer)
     sender = Send(buffer=buffer, testing=True)
-    scanner.set_origin(path='/Volumes/Homework/MacOS/Documents/Bachelor thesis/transfer_1519719_files_17898fcd/test')
+    scanner.set_origin(path='test')
     scanner.print_origin()
     sender.set_destination(path='/webhome/s2649438/public_html/test')
     scanning_thread = Thread(target = scanner.scan_folder)
