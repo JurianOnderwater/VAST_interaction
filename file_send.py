@@ -12,7 +12,7 @@ class Send:
 
     --------
     ### Arguments:
-    - `buffer (circularBuffer)` - This is a bufferobject used for dequeueing the files and send them
+    - `buffer` - This is a bufferobject used for dequeueing the files to be sent
     --------
     ### Functions:
     - `set_destination(path: str)`: Sets the path to where the files are transferred.
@@ -64,7 +64,7 @@ class Send:
     def transfer_files(self) -> None:
         """
         Transfers queued files to the remote server destination folder.\n
-        The file transfer protocol is opened, the file transferred, and the\n
+        The file transfer protocol is opened, the files transferred, and the\n
         transfer protocol closed again.\n 
         The file is deleted from the origin folder.
 
