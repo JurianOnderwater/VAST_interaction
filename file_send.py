@@ -12,7 +12,7 @@ class Send:
 
     --------
     ### Arguments:
-    - `buffer` - This is a bufferobject used for dequeueing the files to be sent
+    - `buffer (circularBuffer)` - This is a bufferobject used for dequeueing the files and send them
     --------
     ### Functions:
     - `set_destination(path: str)`: Sets the path to where the files are transferred.
@@ -64,7 +64,7 @@ class Send:
     def transfer_files(self) -> None:
         """
         Transfers queued files to the remote server destination folder.\n
-        The file transfer protocol is opened, the files transferred, and the\n
+        The file transfer protocol is opened, the file transferred, and the\n
         transfer protocol closed again.\n 
         The file is deleted from the origin folder.
 
@@ -81,11 +81,7 @@ class Send:
                 file = self.buffer.dequeue()
                 remotepath = self.destination + '/' + file
                 file = 'test/' + file
-                try:
-                    self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
-                    print(f'Transferred {file} to {self.destination}')
-                    os.remove(file) 
-                except FileNotFoundError:
-                    print(f'{file} was already transferred')
-            self.ftp_client.close()
-                                             
+                self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
+                print(f'Transferred {file} to {self.destination}')
+                os.remove(file)  
+            self.ftp_client.close()                                 
