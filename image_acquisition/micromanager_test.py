@@ -1,10 +1,5 @@
 from pycromanager import Acquisition, multi_d_acquisition_events, Core, Studio
 from ndtiff import NDTiffDataset
-import numpy as np
-import matplotlib.pyplot as plt
-import sys
-from file_sharing import scan_folder
-# np.set_printoptions(threshold=sys.maxsize)
 
 # bridge = Bridge()
 mmc = Core()
@@ -15,7 +10,7 @@ mmStudio = Studio()
 # Data set parameters
 path = r"\test"
 name = "pycromanager_test"
-dataset = NDTiffDataset(dataset_path=path, remote_storage_monitor=None)
+# dataset = NDTiffDataset(dataset_path=path, remote_storage_monitor=None)
 
 
 # time series parameters
@@ -23,7 +18,7 @@ dataset = NDTiffDataset(dataset_path=path, remote_storage_monitor=None)
 exposure_time = mmc.get_exposure()  # in milliseconds
 framerate = 14 # Needs to be adapted to the turning rate of the VAST
 
-ANGLE_INCREMENT = 4
+ANGLE_INCREMENT = 120
 NUM_IMAGES = 360/ANGLE_INCREMENT
 FILTER_COUNT = 1
 
@@ -33,10 +28,16 @@ FILTER_COUNT = 1
 mmc.set_exposure(exposure_time)
 # mmc.set_property("BaumerOptronic", "Framerate", framerate)
 auto_shutter = mmc.get_property('Core', 'AutoShutter')
-light_state = mmc.get_property('Transmitted Light-State')
+shutter      = mmc.get_property('Core', 'Shutter')
+turret       = mmc.get_property('ObjectiveTurret', 'State')
+# light_state  = mmc.get_property('Transmitted Light', 'State')
+# light_level  = mmc.set_property('Transmitted Light', 'Level')
+
 
 mmc.set_property('Core', 'AutoShutter', 1)
-mmc.set_property('Transmitted Light_State', 1)
+mmc.set_property(shutter, 'State', 1)
+mmc.set_property(shutter, 'Level', 100)
+mmc.set_property('ObjectiveTurret', 'State', 4)
 
 # mmc.snap_image()
 # tagged_image = mmc.get_tagged_image()
@@ -60,7 +61,7 @@ mmc.set_property('Transmitted Light_State', 1)
 
 
 
-events = multi_d_acquisition_events(num_time_points=NUM_IMAGES, time_interval_s=0.5)
+events = multi_d_acquisition_events(num_time_points=NUM_IMAGES, time_interval_s=0)
 # angle_vast = range(NUM_IMAGES)
 # for i in range(FILTER_COUNT):
 #     for j in angle_vast:
@@ -69,10 +70,8 @@ events = multi_d_acquisition_events(num_time_points=NUM_IMAGES, time_interval_s=
 
 #------------------------------------------------------------------
 
-with Acquisition(directory=path, name=name) as acq:
-    acq.acquire(events)
-    if dataset.has_new_image():
-        scan_folder.Scan()
+# with Acquisition(directory=path, name=name) as acq:
+#     acq.acquire(events)
 
 
 
