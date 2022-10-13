@@ -37,7 +37,35 @@ class Acquire():
 
         self.mmc.set_property('Core', 'AutoShutter', 1)
         self.mmc.set_property('Transmitted Light_State', 1)
+        self.property_dict = {'light level': ['Core', 'Shutter', 'Level'],
+                              'light state': ['Core', 'Shutter', 'State'],
+                              'zoom level' : ['ObjectiveTurret', 'State']}
+        self.turret_dict   = {'10x':0,
+                              '20x':1,
+                              '2x':2,
+                              '63x':3,
+                              '4x':4} 
         pass
+
+    def set_optical_property(self, property: str, value: int) -> None:
+        """
+        Sets a value of one of the optical variables.
+        
+        --------
+        Arguments:
+        - `property (str)` - name of the property to be set
+            - `light level`: 0-1 (on/off)
+            - `light state`: 0-255
+            - `Zoom level`: 10x, 20x, 2x, 63x, 4x
+
+        """
+        device = self.mmc.get_property(self.property_dict[property][0], self.property_dict[property][1])
+        try:
+            mmc.set_property(device, self.property_dict[property][2], value)
+        except:
+            mmc.set_property(self.property_dict[property][0], self.property_dict[property][1], self.turret_dict[value])
+        pass
+
 
     def acquirer(self) -> None:
         """
