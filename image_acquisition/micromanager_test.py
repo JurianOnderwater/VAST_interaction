@@ -21,6 +21,7 @@ framerate = 14 # Needs to be adapted to the turning rate of the VAST
 ANGLE_INCREMENT = 120
 NUM_IMAGES = 360/ANGLE_INCREMENT
 FILTER_COUNT = 1
+VAST_CAPTURE_INTERVAL = 1
 
 
 #------------------------------------------------------------------
@@ -39,6 +40,11 @@ mmc.set_property(shutter, 'State', 1)
 mmc.set_property(shutter, 'Level', 100)
 mmc.set_property('ObjectiveTurret', 'State', 4)
 
+channel_group = "cahnnel-group-name"
+channels = ["BF", "FL"]
+# channel_exposures_ms = [15.5, 200]
+
+"""Test snapping a single image"""
 # mmc.snap_image()
 # tagged_image = mmc.get_tagged_image()
 # #If using micro-manager multi-camera adapter, use core.getTaggedImage(i), where i is
@@ -60,8 +66,8 @@ mmc.set_property('ObjectiveTurret', 'State', 4)
 # plt.show()
 
 
-
-events = multi_d_acquisition_events(num_time_points=NUM_IMAGES, time_interval_s=0)
+"""Test acquiring a series of events"""
+events = multi_d_acquisition_events(num_time_points=NUM_IMAGES, time_interval_s=VAST_CAPTURE_INTERVAL)
 # angle_vast = range(NUM_IMAGES)
 # for i in range(FILTER_COUNT):
 #     for j in angle_vast:
