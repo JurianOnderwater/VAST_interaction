@@ -1,6 +1,6 @@
 from pycromanager import Core, Studio, Acquisition, multi_d_acquisition_events
 from ndtiff import NDTiffDataset
-from file_sharing import scan_folder
+# from file_sharing.scan_folder import Scan
 # np.set_printoptions(threshold=sys.maxsize)
 
 # bridge = Bridge()
@@ -36,7 +36,7 @@ class Acquire():
         self.light_state = mmc.get_property('Transmitted Light-State')
 
         self.mmc.set_property('Core', 'AutoShutter', 1)
-        self.mmc.set_property('Transmitted Light_State', 1)
+        self.mmc.set_property('Transmitted Light', 'State', 1)
         self.property_dict = {'light level': ['Core', 'Shutter', 'Level'],
                               'light state': ['Core', 'Shutter', 'State'],
                               'zoom level' : ['ObjectiveTurret', 'State']}
