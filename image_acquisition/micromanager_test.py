@@ -1,5 +1,6 @@
 from pycromanager import Acquisition, multi_d_acquisition_events, Core, Studio
 from ndtiff import NDTiffDataset
+from helper import rgba2rgb
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -12,8 +13,6 @@ mmStudio = Studio()
 # Data set parameters
 path = r"\test"
 name = "pycromanager_test"
-# dataset = NDTiffDataset(dataset_path=path, remote_storage_monitor=None)
-
 
 # time series parameters
 # duration = 2  # in seconds
@@ -47,22 +46,6 @@ channels = ["BF", "FL"]
 
 """Test snapping a single image"""
 
-def rgba2rgb(rgba: np.array):
-    row, col, ch = rgba.shape
-
-    if ch == 3:
-        return rgba
-
-    assert ch == 4, 'RGBA image has 4 channels.'
-
-    rgb = np.zeros( (row, col, 3), dtype='float32' )
-    r, g, b= rgba[:,:,0], rgba[:,:,1], rgba[:,:,2]
-
-    rgb[:,:,0] = r
-    rgb[:,:,1] = g
-    rgb[:,:,2] = b
-
-    return np.asarray( rgb, dtype='uint8' )
 
 mmc.snap_image()
 tagged_image = mmc.get_tagged_image()
