@@ -6,9 +6,9 @@ def timerFunc(f: function):
     @wraps(f)
     def wrapper(*args, **kwargs):
         ts = time()
-        result = f(*args, **kw)
+        result = f(*args, **kwargs
         te = time()
         print('func:%r args:[%r, %r] took: %2.4f sec' % \
-          (f.__name__, args, kw, te-ts))
+          (f.__name__, args, kwargs, te-ts))
         return result
     return wrapper
