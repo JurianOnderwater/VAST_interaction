@@ -1,29 +1,74 @@
-# This Python file uses the following encoding: utf-8
-import os
-from pathlib import Path
 import sys
 
-from PySide6.QtWidgets import QApplication, QWidget
-from PySide6.QtCore import QFile
-from PySide6.QtUiTools import QUiLoader
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QComboBox,
+    QDateEdit,
+    QDateTimeEdit,
+    QDial,
+    QDoubleSpinBox,
+    QFontComboBox,
+    QLabel,
+    QLCDNumber,
+    QLineEdit,
+    QMainWindow,
+    QProgressBar,
+    QPushButton,
+    QRadioButton,
+    QSlider,
+    QSpinBox,
+    QTimeEdit,
+    QVBoxLayout,
+    QWidget,
+)
+
+from  image_acquisition.micromanager import Acquire
 
 
-class Widget(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.load_ui()
+# Subclass QMainWindow to customize your application's main window
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
-    def load_ui(self):
-        loader = QUiLoader()
-        path = Path(__file__).resolve().parent / "form.ui"
-        ui_file = QFile(path)
-        ui_file.open(QFile.ReadOnly)
-        loader.load(ui_file, self)
-        ui_file.close()
+        self.setWindowTitle("Widgets App")
+
+        layout = QVBoxLayout()
+
+        self.Acquirer = Acquire()
+        self.magnificaitons_list = self.Acquirer.turret_dict.keys()
+        self.multi_channel = QCheckBox('Use Fluoresence')
+        self.magnification_level = QComboBox()
+        self.magnification_level.addItems(self.magnificaitons_list)
+        self.test_label = QLabel('Acquisition name:')
+        self.acquisition_name = QLineEdit()
+        self.light_level = QSlider(Qt.Horizontal)
+        self.start = QPushButton('Start')
+        
+        widgets = [
+            self.multi_channel,
+            self.magnification_level,
+            self.test_label,
+            self.acquisition_name,
+            self.light_level,
+            self.start,
+            ]
+
+        for w in widgets:
+            layout.addWidget(w)
+
+        # layout.
+        widget = QWidget()
+        widget.setLayout(layout)
+
+        # Set the central widget of the Window. Widget will expand
+        # to take up all the space in the window by default.
+        self.setCentralWidget(widget)
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    widget = Widget()
-    widget.show()
-    sys.exit(app.exec())
+app = QApplication(sys.argv)
+window = MainWindow()
+window.show()
+
+app.exec_()
