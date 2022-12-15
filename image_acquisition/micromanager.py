@@ -1,5 +1,6 @@
 from pycromanager import Core, Studio, Acquisition, multi_d_acquisition_events
 from ndtiff import NDTiffDataset
+from helper import image_process_fn
 # from file_sharing.scan_folder import Scan
 # np.set_printoptions(threshold=sys.maxsize)
 
@@ -13,10 +14,11 @@ class Acquire():
     """
 
     def __init__(self, path, name: str) -> None:
-        # Initialise micromanager
+        # Initialise Micromanager
         self.mmc = Core()
         self.mmStudio = Studio()
-        # Data set parameters
+        
+        # Dataset parameters
         self.path = path
         self.name = name
         self.dataset = NDTiffDataset(dataset_path=path, remote_storage_monitor=None)
@@ -72,6 +74,6 @@ class Acquire():
         Some description
         """
         events = multi_d_acquisition_events(num_time_points=self.NUM_IMAGES, time_interval_s=0.5)
-        with Acquisition(directory=self.path, name=self.name) as acq:
+        with Acquisition(directory=self.path, name=self.name, image_process_fn=image_process_fn) as acq:
             acq.acquire(events)
         

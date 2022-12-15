@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from PIL import Image, PngImagePlugin
 
-def rgba2rgb(rgba: np.array) -> np.array:
+def rgba_to_rgb(rgba: np.array) -> np.array:
     '''
     Takes a numpy array and reshapes it into a width*height*channel shape.\n
     If an alpha channel is present it is removed.
@@ -45,14 +45,14 @@ def image_process_fn(image: np.array, metadata: dict):
     - `original_image (np.array)` - The unchanged array of pixels.
     - `metadata` - The unchanged metadata dictionary
     '''
-    h, w, ch = 720, 1280, 4 #chech image dimensions. Probably take h and w from metadata.
-    original_image = image.copy
+    h, w, ch = (720, 1280, 4) #chech image dimensions. Probably take h and w from metadata.
+    original_image = image.copy()
     image = image.reshape[h,w,ch]
-    image = rgba2rgb(image)
+    image = rgba_to_rgb(image)
     fig = plt.plot(image)
-    fig.savefig('name.png') # Take name out of metadata
+    fig.savefig('actual_name_png') # Take name out of metadata
 
-    im = Image.open('name.png')
+    im = Image.open('actual_name_png')
     meta = PngImagePlugin.PngInfo()
 
     for x in metadata:

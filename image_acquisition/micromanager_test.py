@@ -1,6 +1,6 @@
 from pycromanager import Acquisition, multi_d_acquisition_events, Core, Studio
 from ndtiff import NDTiffDataset
-from helper import rgba2rgb
+from helper import rgba2rgb, image_process_fn
 import matplotlib.pyplot as plt
 import numpy as np
 
