@@ -24,7 +24,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from micromanager import Acquire
+from image_acquisition.micromanager import Acquire
 
 
 # Subclass QMainWindow to customize your application's main window
@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
 
         layout = QVBoxLayout()
 
-        self.Acquirer = image_acquisition.micromanager.Acquire()
+        self.Acquirer = Acquire()
         self.magnificaitons_list = list(self.Acquirer.turret_dict.keys())
         self.multi_channel = QCheckBox('Use Fluoresence')
         self.magnification_level = QComboBox()

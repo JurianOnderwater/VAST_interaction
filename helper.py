@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from PIL import Image, PngImagePlugin
 
-def rgba_to_rgb(rgba: np.array) -> np.array:
+def rgba_to_rgb(rgba):
     '''
     Takes a numpy array and reshapes it into a width*height*channel shape.\n
     If an alpha channel is present it is removed.
@@ -30,7 +30,7 @@ def rgba_to_rgb(rgba: np.array) -> np.array:
     return np.asarray(rgb, dtype='uint8')
 
 
-def image_process_fn(image: np.array, metadata: dict):
+def image_process_fn(image, metadata: dict):
     '''
     Saves images seperately instead of as a single large NDTIFF file.\n
     metadata is encoded in the png file instead of as a seperate `dict`.\n
