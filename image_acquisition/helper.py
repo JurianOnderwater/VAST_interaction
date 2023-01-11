@@ -47,7 +47,7 @@ def image_process_fn(image, metadata: dict):
     '''
     h, w, ch = (720, 1280, 4) #chech image dimensions. Probably take h and w from metadata.
     original_image = image.copy()
-    image = image.reshape[h,w,ch]
+    image = image.reshape(h,w,ch)
     image = rgba_to_rgb(image)
     fig = plt.plot(image)
     fig.savefig('actual_name_png') # Take name out of metadata
