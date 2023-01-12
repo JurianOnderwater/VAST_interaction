@@ -38,9 +38,12 @@ turret       = mmc.get_property('ObjectiveTurret', 'State')
 # light_level  = mmc.set_property('Transmitted Light', 'Level')
 
 # mmc.set_property('Core', 'AutoShutter', 1)
-mmc.set_property('Transmitted Light', 'Level', 150)
-mmc.set_property('Transmitted Light', 'State', 1)
-mmc.set_property('ObjectiveTurret', 'State', 4)
+def set_brightness(val):
+    mmc.set_property('Transmitted Light', 'Level', val)
+
+def set_light_state(on_off: bool):
+    mmc.set_property('Transmitted Light', 'State', on_off)
+# mmc.set_property('ObjectiveTurret', 'State', 4)
 
 channel_group = "channel-group-name"
 channels = ["BF", "FL"]
@@ -84,6 +87,8 @@ def capture_series(num_time_points: int, time_interval: int, path: str=r"\test")
         snap_image(i, path)
         sleep(time_interval)
 
+set_light_state(on_off=1)
+set_brightness(val=200)
 capture_series(2,1)
         
 # events = multi_d_acquisition_events(num_time_points=NUM_IMAGES, time_interval_s=VAST_CAPTURE_INTERVAL)

@@ -1,5 +1,5 @@
 import sys
-
+from micromanager import Acquire
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,
@@ -14,9 +14,6 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-# from image_acquisition.micromanager import Acquire 
-
-
 # Subclass QMainWindow to customize application's main window
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -26,9 +23,9 @@ class MainWindow(QMainWindow):
 
         layout = QVBoxLayout()
 
-        # self.Acquirer = Acquire()t
-        # self.magnifications_list = list(str(x) for x in self.Acquirer.turret_dict.keys())
-        self.magnifications_list = [10, 20, 2, 63, 4]
+        self.Acquirer = Acquire(path=r"\test", name="pycromanager_test")
+        self.magnifications_list = list(x for x in self.Acquirer.turret_dict.keys())
+        # self.magnifications_list = [10, 20, 2, 63, 4]
         self.ticks = [50, 100, 150, 200]
 
         self.multi_channel = QCheckBox('Use Fluoresence')
@@ -39,7 +36,7 @@ class MainWindow(QMainWindow):
 
         self.test_label = QLabel('Acquisition name:')
         self.acquisition_name = QLineEdit()
-        # self.acquisition_name = QLineEdit(self.Aquirer.default_name)
+        self.acquisition_name = QLineEdit(self.Acquirer.name)
 
         self.light_level = QSlider(Qt.Horizontal)
         self.light_level.setMinimum(0)
@@ -49,6 +46,8 @@ class MainWindow(QMainWindow):
         self.light_level.valueChanged.connect(self.light_value_change)
 
         self.start = QPushButton('Start')
+        self.start.setCheckable(True)
+        self.start.clicked.connect(self.start_acquisition)
         
         widgets = [
             self.multi_channel,
@@ -72,11 +71,14 @@ class MainWindow(QMainWindow):
 
     def light_value_change(self):
         brightness = self.light_level.value()
-        # self.Acquirer.set_optical_property(property='light level', value=brightness)
+        self.Acquirer.set_brightness(val=brightness)
 
     def magnification_value_change(self):
         magnification = self.magnification_level.currentText()
-        # self.Acquirer.set_optical_property(property='zoom level', value=int(magnification))
+        self.Acquirer.set_zoom(mag=magnification)
+
+    def start_acquisition(self):
+        self.Acquirer.capture_series(num_time_points=5, time_interval=1)
 
 app = QApplication(sys.argv)
 window = MainWindow()
