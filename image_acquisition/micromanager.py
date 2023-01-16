@@ -49,6 +49,8 @@ class Acquire():
                               '2x':2,
                               '63x':3,
                               '4x':4} 
+
+        # self.progress = 0
         pass
 
     def set_brightness(self, val):
@@ -88,6 +90,9 @@ class Acquire():
     #         acq.acquire(events)
     
     def snap_image(self, num: int, path: str):
+        '''
+        some description
+        '''
         self.mmc.snap_image()
         im_name = path+ r'\vast_im_' + str(num) + '.png'
         tagged_image = mmc.get_tagged_image()
@@ -106,6 +111,11 @@ class Acquire():
         plt.show()
 
     def capture_series(self, num_time_points: int, time_interval: int, path: str=r"\test"):
+        '''
+        some description
+        '''
         for i in range(num_time_points):
             self.snap_image(i, path)
+            # self.progress = i
             sleep(time_interval)
+            

@@ -10,6 +10,7 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QPushButton,
     QSlider,
+    QProgressBar,
     QVBoxLayout,
     QWidget,
 )
@@ -48,7 +49,11 @@ class MainWindow(QMainWindow):
         self.start = QPushButton('Start')
         self.start.setCheckable(True)
         self.start.clicked.connect(self.start_acquisition)
-        
+
+        # self.progress_bar = QProgressBar()
+        # self.progress_bar.setRange(0, self.Acquirer.NUM_IMAGES)
+        # self.progress_bar.setValue(self.Acquirer.progress)
+
         widgets = [
             self.multi_channel,
             self.magnification_level,
