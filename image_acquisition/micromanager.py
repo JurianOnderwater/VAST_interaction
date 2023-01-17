@@ -2,7 +2,7 @@ from pycromanager import Core, Studio, Acquisition, multi_d_acquisition_events
 # from ndtiff import NDTiffDataset
 import matplotlib.pyplot as plt
 from time import sleep
-import helper
+from image_acquisition.helper import rgba_to_rgb
 # from file_sharing.scan_folder import Scan
 # np.set_printoptions(threshold=sys.maxsize)
 
@@ -98,7 +98,7 @@ class Acquire():
         tagged_image = mmc.get_tagged_image()
 
         pixels = tagged_image.pix.reshape(tagged_image.tags['Height'], tagged_image.tags['Width'], 4)
-        pixels = helper.rgba_to_rgb(pixels)
+        pixels = rgba_to_rgb(pixels)
         # fig = plt.imshow(pixels)
         # fig.savefig(im_name) # Take name out of metadata
 
