@@ -53,7 +53,14 @@ class Acquire():
         # self.progress = 0
         pass
 
-    def set_brightness(self, val):
+    def set_brightness(self, val: int):
+        """
+        Sets the brightness level to 0-255.
+        
+        --------
+        ### Arguments:
+        - `val`(int): 0-255
+        """
         self.mmc.set_property('Transmitted Light', 'State', 1)
         self.mmc.set_property('Transmitted Light', 'Level', val)
     
@@ -63,7 +70,7 @@ class Acquire():
         
         --------
         ### Arguments:
-        - `Zoom level`: 10x, 20x, 2x, 63x, 4x
+        - `Zoom level`(str): 10x, 20x, 2x, 63x, 4x
         """
     # def set_optical_property(self, property: str, value: int) -> None:
     #     """
@@ -104,14 +111,7 @@ class Acquire():
 
         pixels = tagged_image.pix.reshape(tagged_image.tags['Height'], tagged_image.tags['Width'], 4)
         pixels = rgba_to_rgb(pixels)
-        # fig = plt.imshow(pixels)
-        # fig.savefig(im_name) # Take name out of metadata
-
-        # im = Image.open(im_name)
-        # meta = PngImagePlugin.PngInfo()
-        # # meta.add_text(x, metadata[x])
-        # im.save(im_name, "png", pnginfo=meta)
-        # plt.imshow(pixels)
+        
         plt.imsave(fname=im_name, arr=pixels)
         plt.show()
 
