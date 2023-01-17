@@ -1,7 +1,7 @@
-from scan_folder import Scan
-from file_send import Send
-from connect_to_server import *
-from datastructures import *
+from file_sharing.scan_folder import Scan
+from file_sharing.file_send import Send
+from file_sharing.connect_to_server import *
+from file_sharing.datastructures import *
 from threading import Thread
 
 

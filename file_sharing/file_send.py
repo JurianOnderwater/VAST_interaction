@@ -1,6 +1,6 @@
 import os
-from datastructures import *
-from connect_to_server import connect, set_credentials, delete_credentials
+from file_sharing.datastructures import *
+from file_sharing.connect_to_server import connect, set_credentials, delete_credentials
 from time import sleep
 # from typing import Type # might need for typing with subclasses.
 
