@@ -1,5 +1,6 @@
 import sys
-from micromanager import Acquire
+from image_acquisition.micromanager import Acquire
+from file_sharing.transfer import Transfer
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,
@@ -25,8 +26,8 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
 
         self.Acquirer = Acquire(path=r"\test", name="pycromanager_test")
+        self.Transferer = Transfer()
         self.magnifications_list = list(x for x in self.Acquirer.turret_dict.keys())
-        # self.magnifications_list = [10, 20, 2, 63, 4]
         self.ticks = [50, 100, 150, 200]
 
         self.multi_channel = QCheckBox('Use Fluoresence')
@@ -75,18 +76,29 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
 
     def light_value_change(self):
+        """
+        Change the brightness of the lamp used in the microscope
+        """
         brightness = self.light_level.value()
         self.Acquirer.set_brightness(val=brightness)
 
     def magnification_value_change(self):
+        """
+        Change the magnification factor used in the microscope
+        """
         magnification = self.magnification_level.currentText()
         self.Acquirer.set_zoom(mag=magnification)
 
     def start_acquisition(self):
+        """
+        Capture images and transfer them to the server
+        """
         self.Acquirer.capture_series(num_time_points=5, time_interval=1)
+        self.Transferer.transfer()
 
-app = QApplication(sys.argv)
-window = MainWindow()
-window.show()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
 
-app.exec_()
+    app.exec_()
