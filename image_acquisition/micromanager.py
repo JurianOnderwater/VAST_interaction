@@ -58,8 +58,13 @@ class Acquire():
         self.mmc.set_property('Transmitted Light', 'Level', val)
     
     def set_zoom(self, mag: str):
-        self.mmc.set_property('ObjectiveTurret', 'State', self.turret_dict[mag])
-
+        """
+        Sets the zoom level to one of the available options.
+        
+        --------
+        ### Arguments:
+        - `Zoom level`: 10x, 20x, 2x, 63x, 4x
+        """
     # def set_optical_property(self, property: str, value: int) -> None:
     #     """
     #     Sets a value of one of the optical variables.
