@@ -8,8 +8,8 @@ from threading import Thread
 
 class Transfer:
     def __init__(self) -> None:
-        self.scanpath = r"\test"
-        self.sendpath = "/webhome/s2649438/public_html/test"
+        self.scanpath = r"\test" # Windows
+        self.sendpath = "/webhome/s2649438/public_html/test" # Linux
 
         self.buffer = timedBuffer(max_size=20)
         self.scanner = Scan(buffer=self.buffer)
