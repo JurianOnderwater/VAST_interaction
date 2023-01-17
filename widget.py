@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
 
         self.Acquirer = Acquire(path=r"\test", name="pycromanager_test")
         self.Transferer = Transfer()
-        self.magnifications_list = list(x for x in self.Acquirer.turret_dict.keys())
+        self.magnifications_list = list(mag for mag in self.Acquirer.turret_dict.keys())
         self.ticks = [50, 100, 150, 200]
 
         self.multi_channel = QCheckBox('Use Fluoresence')

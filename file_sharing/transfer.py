@@ -1,4 +1,3 @@
-from image_acquisition.micromanager import Acquire
 from scan_folder import Scan
 from file_send import Send
 from connect_to_server import *
