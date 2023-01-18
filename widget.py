@@ -37,17 +37,18 @@ class MainWindow(QMainWindow):
         self.magnification_level.currentTextChanged.connect(self.magnification_value_change)
 
         self.test_label = QLabel('Acquisition name:')
-        self.acquisition_name = QLineEdit()
-        self.acquisition_name = QLineEdit(self.Acquirer.name)
+        # self.acquisition_name = QLineEdit()
+        self.acquisition_name = QLineEdit(self.Acquirer.name) # Don't hardcode here, results in typeError
 
         self.light_level = QSlider(Qt.Horizontal)
-        self.light_level.setMinimum(0)
-        self.light_level.setMaximum(255)
+        # self.light_level.setMinimum(0)
+        # self.light_level.setMaximum(255)
+        self.light_level.setRange(min: 0, max: 255)
         self.light_level.setTickPosition(QSlider.TicksAbove)
         self.light_level.setTickInterval(50)
         self.light_level.valueChanged.connect(self.light_value_change)
 
-        self.start = QPushButton('Start')
+        self.start = QPushButton('Start Acquisition')
         self.start.setCheckable(True)
         self.start.clicked.connect(self.start_acquisition)
 
@@ -64,7 +65,7 @@ class MainWindow(QMainWindow):
             self.start,
             ]
 
-        for w in widgets:
+        for w in widgets:           # lotta w's out here
             layout.addWidget(w)
 
         # layout
@@ -91,7 +92,7 @@ class MainWindow(QMainWindow):
 
     def start_acquisition(self):
         """
-        Capture images and transfer them to the server
+        Start the capture images and transfer them to the server
         """
         self.Acquirer.capture_series(num_time_points=5, time_interval=1)
         self.Transferer.transfer()
