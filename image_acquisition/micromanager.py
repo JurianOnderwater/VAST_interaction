@@ -61,7 +61,7 @@ class Acquire():
         ### Arguments:
         - `val`(int): 0-255
         """
-        self.mmc.set_property('Transmitted Light', 'State', 1)
+        # self.mmc.set_property('Transmitted Light', 'State', 1)
         self.mmc.set_property('Transmitted Light', 'Level', val)
     
     def set_zoom(self, mag: str):
@@ -72,6 +72,9 @@ class Acquire():
         ### Arguments:
         - `Zoom level`(str): 10x, 20x, 2x, 63x, 4x
         """
+        self.mmc.set_property('ObjectiveTurret', 'State', self.turret_dict[mag])
+
+
     # def set_optical_property(self, property: str, value: int) -> None:
     #     """
     #     Sets a value of one of the optical variables.
@@ -113,7 +116,7 @@ class Acquire():
         pixels = rgba_to_rgb(pixels)
         
         plt.imsave(fname=im_name, arr=pixels)
-        plt.show()
+        # plt.show()
 
     def capture_series(self, num_time_points: int, time_interval: int, path: str=r"\test"):
         '''

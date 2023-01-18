@@ -20,7 +20,7 @@ def rgba_to_rgb(rgba):
 
     assert ch == 4, 'Check if image has 4 channels.'
 
-    rgb = np.zeros((row, col, 3), dtype='float32')
+    rgb = np.zeros((row, col, 3))
     r, g, b= rgba[:,:,0], rgba[:,:,1], rgba[:,:,2]
 
     rgb[:,:,0] = r

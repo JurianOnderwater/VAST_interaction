@@ -100,14 +100,14 @@ class Scan:
             raise NameError("You didn't specify an origin folder!")
         else:
             print(os.listdir(self.origin))
-            while True:
-                for file in os.listdir(self.origin):            # Check if this function does what it seems to do
-                    if file not in self.buffer.queue:
-                        if file != '.DS_Store':                 # MacOS specific thingy. Has to do with folder metadata.
-                            self.buffer.enqueue(origin=self.origin, item=file)
-                            try: print('current queue: {queue}, current tail: {tail}'.format(queue=self.buffer.queue, tail=self.buffer.tail))
-                            except: print('current queue: {}'.format(self.buffer.queue))       
-                            
-                    sleep(self.scanning_interval)
+            # while True:
+            # while len(os.listdir(self.origin)):
+            for file in os.listdir(self.origin): 
+                if file not in self.buffer.queue:
+                    if file != '.DS_Store':                 # MacOS specific thingy. Has to do with folder metadata.
+                        self.buffer.enqueue(origin=self.origin, item=file)
+                        try: print('current queue: {queue}, current tail: {tail}'.format(queue=self.buffer.queue, tail=self.buffer.tail))
+                        except: print('current queue: {}'.format(self.buffer.queue))    
+                # sleep(self.scanning_interval)
 
         
