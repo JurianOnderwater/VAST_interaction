@@ -74,7 +74,7 @@ class Acquire():
         """
         self.mmc.set_property('ObjectiveTurret', 'State', self.turret_dict[mag])
 
-
+        
     # def set_optical_property(self, property: str, value: int) -> None:
     #     """
     #     Sets a value of one of the optical variables.
@@ -106,7 +106,12 @@ class Acquire():
     
     def snap_image(self, num: int, path: str):
         '''
-        some description
+        Snaps a single image and saves it as a pyplot
+        --------
+        ### Arguments:
+        Arguments are provided automatically when using in conjunction with the `acquire()` funtion
+        - `num (int)` - Index for saving puposes.
+        - `path` (str) - Filepath, also for saving purposes.
         '''
         self.mmc.snap_image()
         im_name = path+ r'\vast_im_' + str(num) + '.png'
@@ -120,7 +125,13 @@ class Acquire():
 
     def capture_series(self, num_time_points: int, time_interval: int, path: str=r"\test"):
         '''
-        some description
+        Simple wrapper that runs `snap_image()` in a loop on an interval.
+        --------
+        ### Arguments:
+        Arguments are provided automatically when using in conjunction with the `acquire()` funtion
+        - `num_time_points (int)` - total amount of pictures taken.
+        - `time_interval` (int) - waiting time between two pictures.
+        - `path` (str) - passes path to `snap_image()`
         '''
         for i in range(num_time_points):
             self.snap_image(i, path)
