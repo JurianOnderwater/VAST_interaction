@@ -27,7 +27,7 @@ class Send:
         # self.port = None
         self.destination = None
         if testing:
-            self.ssh = connect(hostname='ssh.liacs.nl', username='s2649438', password='A3loA2loA1lo@')
+            self.ssh = connect(hostname='ssh.liacs.nl', username='s2649438', password='Z3loZ2loZ1lo@')
         else:
             self.hostname, self.username,self.password = set_credentials()                                         # Take user input as username and password
             self.ssh = connect(hostname=self.hostname, username=self.username, password=self.password)
@@ -72,6 +72,7 @@ class Send:
         Raises:
             `NameError` - When path is not set yet
         """
+        print('TRANSFER FILES IS CALLED')
         sleep(0.2)
         if (self.destination is None):
             raise NameError('The destination folder has not yet been set!')
@@ -80,8 +81,33 @@ class Send:
             while self.buffer.size >= 1:
                 file = self.buffer.dequeue()
                 remotepath = self.destination + '/' + file
-                file = 'test/' + file
+                file = r"\test" + file
                 self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
                 print(f'Transferred {file} to {self.destination}')
                 os.remove(file)  
-            self.ftp_client.close()                                 
+            self.ftp_client.close()       
+
+    # def transfer_files_2(self, file) -> None:
+    #     """
+    #     Transfers queued files to the remote server destination folder.\n
+    #     The file transfer protocol is opened, the file transferred, and the\n
+    #     transfer protocol closed again.\n 
+    #     The file is deleted from the origin folder.
+
+    #     --------
+    #     Raises:
+    #         `NameError` - When path is not set yet
+    #     """
+    #     print('TRANSFER FILE IS CALLED')
+    #     sleep(0.2)
+    #     if (self.destination is None):
+    #         raise NameError('The destination folder has not yet been set!')
+    #     else:
+    #         self.ftp_client = self.ssh.open_sftp()
+            
+            remotepath = self.destination + '/' + file
+            file = 'test/' + file
+            self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
+            print(f'Transferred {file} to {self.destination}')
+            os.remove(file)  
+            self.ftp_client.close()                           
