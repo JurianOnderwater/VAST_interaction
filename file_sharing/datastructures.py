@@ -298,9 +298,9 @@ class randomBuffer():
         self.tail += 1
         self.tail %= self.max_size
         if self.size == self.max_size:
-            self.head = random.randint(self.max_size)
+            self.head = random.randint(0, self.max_size)
             # self.dequeue()
-            self.queue[self.head] = item
+            self.queue[self.head-1] = item
             self.size += 1
 
             return
