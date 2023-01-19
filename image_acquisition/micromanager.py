@@ -74,7 +74,7 @@ class Acquire():
         """
         self.mmc.set_property('ObjectiveTurret', 'State', self.turret_dict[mag])
 
-        
+
     # def set_optical_property(self, property: str, value: int) -> None:
     #     """
     #     Sets a value of one of the optical variables.
@@ -125,7 +125,7 @@ class Acquire():
 
     def capture_series(self, num_time_points: int, time_interval: int, path: str=r"\test"):
         '''
-        Simple wrapper that runs `snap_image()` in a loop on an interval.
+        Runs `snap_image()` in a loop on an interval.
         --------
         ### Arguments:
         Arguments are provided automatically when using in conjunction with the `acquire()` funtion
