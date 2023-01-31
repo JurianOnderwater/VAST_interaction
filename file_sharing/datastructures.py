@@ -105,7 +105,6 @@ class timedBuffer():
         self.queue[self.tail] = item 
         self.size += 1       
 
-
 class clockBuffer():
     """
     Some description
@@ -275,13 +274,13 @@ class randomBuffer():
     - `enqueue(item)`: Puts item on top of the queue and checks which item should be taken off.
     """
     def __init__(self, max_size : int=5, seed: int = 42) -> None:
-        self.previous_deletion: int = 0
         random.seed                 = seed
+        self.previous_deletion      = 0
         self.size                   = 0
         self.max_size               = max_size
         self.queue                  = [None] * max_size
-        self.head = 0
-        self.tail = -1
+        self.head                   = 0
+        self.tail                   = -1
         pass
 
     def dequeue(self):
@@ -298,9 +297,9 @@ class randomBuffer():
         self.tail += 1
         self.tail %= self.max_size
         if self.size == self.max_size:
-            self.head = random.randint(0, self.max_size)
+            random_index = random.randint(0, self.max_size-1)
             # self.dequeue()
-            self.queue[self.head-1] = item
+            self.queue[random_index] = item
             self.size += 1
 
             return
