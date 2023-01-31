@@ -11,7 +11,7 @@ class Transfer:
         self.scanpath = r"\test"                                # Windows
         self.sendpath = "/webhome/s2649438/public_html/test"    # Linux
 
-        self.buffer = randomBuffer(max_size=4)
+        self.buffer = fifoBuffer(max_size=4)
         self.scanner = Scan(buffer=self.buffer)
         self.sender = Send(buffer=self.buffer, testing=True)
         print('Transfer initiated')
