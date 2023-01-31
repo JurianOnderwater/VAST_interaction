@@ -232,13 +232,11 @@ class spacingBuffer():
             self.head = (self.head + 1) % self.max_size
         self.size -= 1
         return tmp
-        # raise NotImplementedError('Not implemented yet')
 
     def enqueue(self, item, origin):
         self.tail += 1
         self.tail %= self.max_size
         if self.size == self.max_size:
-            # self.tail = (self.tail) % self.max_size
             if self.itemnr - self.previous_deletion >= self.spacing:
                 self.previous_deletion = self.itemnr
                 self.dequeue()
