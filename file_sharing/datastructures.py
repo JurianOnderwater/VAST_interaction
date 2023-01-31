@@ -23,9 +23,8 @@ class fifoBuffer():
     """
     def __init__(self, max_size:int=5) -> None:
         self.tail          = -1                       # Indicates where the newest item in the queue is
-        self.head          = 0                        # Indicates where the olderst item in the queue is
-        # self.size = 0                               # Current size of the list  
-        self.size          = 0
+        self.head          = 0                        # Indicates where the olderst item in the queue is  
+        self.size          = 0                        # Current size of the list
         self.max_size      = max_size
         self.queue         = [None] * max_size
 
@@ -100,19 +99,6 @@ class timedBuffer():
             self.dequeue()
         self.queue[self.tail] = item 
         self.size += 1       
-
-class clockBuffer():
-    """
-    Some description
-    """
-    def __init__(self) -> None:
-        pass
-
-    def dequeue(self):
-        raise NotImplementedError('Not implemented yet')
-
-    def enqueue(self, origin, item):
-        raise NotImplementedError('Not implemented yet')
 
 class secondChanceBuffer():
     """
