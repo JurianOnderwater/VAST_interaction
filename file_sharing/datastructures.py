@@ -22,10 +22,6 @@ class fifoBuffer():
     - `enqueue(item)`: Puts item on top of the queue.
     """
     def __init__(self, max_size:int=5) -> None:
-        # self.max_size = max_size
-        # self.queue = [None] * max_size              # Make a list of max_size long
-
-        # self.second_chances = [0] * max_size        # Keep track of the second chances per item in the queue
         self.tail          = -1                       # Indicates where the newest item in the queue is
         self.head          = 0                        # Indicates where the olderst item in the queue is
         # self.size = 0                               # Current size of the list  
@@ -173,9 +169,6 @@ class secondChanceBuffer():
             self.queue[self.tail] = item
             self.size += 1
             return
-
-        # raise NotImplementedError('Not implemented yet')
-
 
 class lruBuffer():
     """
