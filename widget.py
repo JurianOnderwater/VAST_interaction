@@ -43,7 +43,7 @@ class MainWindow(QMainWindow):
         self.light_level = QSlider(Qt.Horizontal)
         # self.light_level.setMinimum(0)
         # self.light_level.setMaximum(255)
-        self.light_level.setRange(min: 0, max: 255)
+        self.light_level.setRange(0, 255)
         self.light_level.setTickPosition(QSlider.TicksAbove)
         self.light_level.setTickInterval(50)
         self.light_level.valueChanged.connect(self.light_value_change)
