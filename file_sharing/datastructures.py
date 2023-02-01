@@ -42,7 +42,7 @@ class fifoBuffer():
         
         self.tail += 1
         if self.size == self.max_size:
-            self.tail = (self.tail) % self.max_size
+            self.tail %= self.max_size
             self.dequeue()
         self.queue[self.tail] = item
         self.size += 1
