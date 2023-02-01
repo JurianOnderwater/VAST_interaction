@@ -81,11 +81,16 @@ class Send:
             while self.buffer.size >= 1:
                 file = self.buffer.dequeue()
                 remotepath = self.destination + '/' + file
-                file = r"\test" + file
-                self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
-                print(f'Transferred {file} to {self.destination}')
-                os.remove(file)  
-            self.ftp_client.close()       
+
+                file = "C:/test/" + file
+                try:
+                    self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
+                    print(f'Transferred {file} to {self.destination}')
+                    os.remove(file)  
+                except FileNotFoundError:
+                    pass
+            self.ftp_client.close()
+            self.buffer.__init__()     
 
     # def transfer_files_2(self, file) -> None:
     #     """
@@ -105,9 +110,12 @@ class Send:
     #     else:
     #         self.ftp_client = self.ssh.open_sftp()
             
-            remotepath = self.destination + '/' + file
-            file = 'test/' + file
-            self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
-            print(f'Transferred {file} to {self.destination}')
-            os.remove(file)  
-            self.ftp_client.close()                           
+            # remotepath = self.destination + '/' + file
+            # # file = 'test/' + file
+            # try:
+            #     self.ftp_client.put(localpath=file,remotepath=remotepath, confirm=True)
+            #     os.remove(file)
+            # except FileNotFoundError:
+            #     pass
+            # print(f'Transferred {file} to {self.destination}')  
+            # self.ftp_client.close()                           
