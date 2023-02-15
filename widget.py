@@ -1,4 +1,5 @@
 import sys
+from threading import Thread
 from image_acquisition.micromanager import Acquire
 from file_sharing.transfer import Transfer
 from PySide6.QtCore import Qt
@@ -30,16 +31,19 @@ class MainWindow(QMainWindow):
         self.magnifications_list = list(mag for mag in self.Acquirer.turret_dict.keys())
         self.ticks = [50, 100, 150, 200]
 
-        self.multi_channel = QCheckBox('Use Fluoresence')
+        self.multi_channel = QComboBox()
+        self.multi_channel.addItems('filter1', 'filter2', 'filter3')
 
+        self.magnification_label = QLabel('Magnification level:')
         self.magnification_level = QComboBox()
         self.magnification_level.addItems(str(x) for x in self.magnifications_list)
         self.magnification_level.currentTextChanged.connect(self.magnification_value_change)
 
-        self.test_label = QLabel('Acquisition name:')
+        self.name_label = QLabel('Acquisition name:')
         # self.acquisition_name = QLineEdit()
         self.acquisition_name = QLineEdit(self.Acquirer.name) # Don't hardcode here, results in typeError
 
+        self.light_label = QLabel('Light intensity')
         self.light_level = QSlider(Qt.Horizontal)
         # self.light_level.setMinimum(0)
         # self.light_level.setMaximum(255)
@@ -58,9 +62,11 @@ class MainWindow(QMainWindow):
 
         widgets = [
             self.multi_channel,
+            self.magnification_label,
             self.magnification_level,
-            self.test_label,
+            self.name_label,
             self.acquisition_name,
+            self.light_label,
             self.light_level,
             self.start,
             ]
@@ -94,6 +100,13 @@ class MainWindow(QMainWindow):
         """
         Start the capture images and transfer them to the server
         """
+        # #test this
+        # acquisition_thread = Thread(target=self.Acquirer.capture_series(num_time_points=5, time_interval=1))
+        # acquisition_thread.start()
+        # transfer_thread = Thread(target=self.Transferer.transfer())
+        # transfer_thread.start()
+        # acquisition_thread.join()
+        # transfer_thread.join()
         self.Acquirer.capture_series(num_time_points=5, time_interval=1)
         self.Transferer.transfer()
 
