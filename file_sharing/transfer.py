@@ -17,6 +17,10 @@ class Transfer:
         print('Transfer initiated')
 
     def transfer(self):
+        '''
+        Starts up a `Send` and `Scan` thread
+        
+        '''
         print('transferer called')
         self.scanner.set_origin(path=self.scanpath)
         self.scanner.print_origin()

@@ -6,9 +6,17 @@ def set_credentials():
     password = str(input("Password:"))
     return [hostname,username, password]
 
-def delete_credentials(hostname, username, password):
+def delete_credentials(hostname: str, username: str, password: str):
+    '''
+        Deletes credentials that are saved in the program.
+
+        --------
+        ### Arguments:
+        - `hostname (str)` - The hostname of the server you are connecting to.
+        - `username (str)` - The username you are using to log into the server.
+        - `password (str)` - The password you are using to log into the server
+        '''
     hostname, username, password = None, None, None
-    pass
 
 def connect(hostname: str, username: str, password: str):
     """
