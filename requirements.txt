@@ -1,37 +1,12 @@
-Python: 3.9.2
-Micro-manager: 2.0.1-20220725 (nightly build from 25 july 2022)
-QTCreator: QT-unified version 4.4.1-online
+paramiko==2.10.4
+matplotlib==3.4.3
+ndtiff==1.6.1
+numpy==1.20.1
+Pillow==9.4.0
+pycromanager==0.18.3
+pyserial==3.5
+PySide6==6.3.1
 
-Pip packages:
-    PycoManager:
-        Name: pycromanager
-        Version: 0.18.3
-        Summary: Open source microscope control using python
-        Home-page: https://github.com/micro-manager/pycro-manager
-        Author: Henry Pinkard
-        Author-email: henry.pinkard@gmail.com
-        Location: /Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages
-        Requires: dask, docstring-inheritance, numpy, pyzmq
-        Required-by: 
-    Pyserial:
-        Name: pyserial
-        Version: 3.5
-        Summary: Python Serial Port Extension
-        Home-page: https://github.com/pyserial/pyserial
-        Author: Chris Liechti
-        Author-email: cliechti@gmx.net
-        License: BSD
-        Location: /Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages
-        Requires: 
-        Required-by: 
-    PySide6:
-        Name: PySide6
-        Version: 6.3.1
-        Summary: Python bindings for the Qt cross-platform application and UI framework
-        Home-page: https://www.pyside.org
-        Author: Qt for Python Team
-        Author-email: pyside@qt-project.org
-        License: LGPL
-        Location: /Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages
-        Requires: PySide6-Addons, PySide6-Essentials, shiboken6
-        Required-by: 
+# Python: 3.9.2
+# Micro-manager: 2.0.1-20220725 (nightly build from 25 july 2022)
+# QTCreator: QT-unified version 4.4.1-online

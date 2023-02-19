@@ -75,6 +75,7 @@ class Acquire():
         self.mmc.set_property('ObjectiveTurret', 'State', self.turret_dict[mag])
 
 
+    '''These functions are used when saving ndtiff files, not when saving individual images'''
     # def set_optical_property(self, property: str, value: int) -> None:
     #     """
     #     Sets a value of one of the optical variables.
@@ -117,11 +118,10 @@ class Acquire():
         im_name = path+ r'\vast_im_' + str(num) + '.png'
         tagged_image = mmc.get_tagged_image()
 
-        pixels = tagged_image.pix.reshape(tagged_image.tags['Height'], tagged_image.tags['Width'], 4)
+        pixels = tagged_image.pix.reshape(tagged_image.tags['Height'], tagged_image.tags['Width'], 4) #image consists of RGBA channels
         pixels = rgba_to_rgb(pixels)
         
         plt.imsave(fname=im_name, arr=pixels)
-        # plt.show()
 
     def capture_series(self, num_time_points: int, time_interval: int, path: str=r"\test"):
         '''

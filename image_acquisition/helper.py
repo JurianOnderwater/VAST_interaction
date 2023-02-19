@@ -6,6 +6,7 @@ def rgba_to_rgb(rgba):
     '''
     Takes a numpy array and reshapes it into a width*height*channel shape.\n
     If an alpha channel is present it is removed.
+    
     --------
     ### Arguments:
     - `rgba (np.array)` - pixel array.
