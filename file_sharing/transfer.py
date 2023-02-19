@@ -8,6 +8,10 @@ from threading import Thread
 
 class Transfer:
     def __init__(self) -> None:
+        ######################################################################
+        # Scanpath and sendpath should always end with the same folder name! #
+        # Otherwise shit breaks cause Paramiko is dumb                       #
+        ######################################################################
         self.scanpath = r"\test"                                # Windows
         self.sendpath = "/webhome/s2649438/public_html/test"    # Linux
 
