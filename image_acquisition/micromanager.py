@@ -7,8 +7,8 @@ from image_acquisition.helper import rgba_to_rgb
 # np.set_printoptions(threshold=sys.maxsize)
 
 # bridge = Bridge()
-mmc = Core()
-mmStudio = Studio()
+# mmc = Core()
+# mmStudio = Studio()
 
 class Acquire():
     """
@@ -26,7 +26,7 @@ class Acquire():
         # self.dataset = NDTiffDataset(dataset_path=path, remote_storage_monitor=None)
 
         # time series parameters
-        self.exposure_time = mmc.get_exposure()  # in milliseconds
+        self.exposure_time = self.mmc.get_exposure()  # in milliseconds
         self.framerate = 2 # Needs to be adapted to the turning rate of the VAST
 
         self.ANGLE_INCREMENT = 4 # Needs to be adapted to turning rate of the VAST
@@ -116,7 +116,7 @@ class Acquire():
         '''
         self.mmc.snap_image()
         im_name = path+ r'\vast_im_' + str(num) + '.png'
-        tagged_image = mmc.get_tagged_image()
+        tagged_image = self.mmc.get_tagged_image()
 
         pixels = tagged_image.pix.reshape(tagged_image.tags['Height'], tagged_image.tags['Width'], 4) #image consists of RGBA channels
         pixels = rgba_to_rgb(pixels)
