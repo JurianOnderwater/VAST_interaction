@@ -21,13 +21,13 @@ class Send:
     """
 
     
-    def __init__(self, buffer, testing: bool) -> None: # check if buffer here also works for classes that inherint from buffer
+    def __init__(self, buffer, LLSC: bool) -> None: # check if buffer here also works for classes that inherint from buffer
         self.buffer = buffer
         # self.host = None
         # self.port = None
         self.destination = None
-        if testing:
-            self.ssh = connect(hostname='ssh.liacs.nl', username='s2649438', password='Z3loZ2loZ1lo@')
+        if LLSC:
+            self.ssh = connect(hostname='change_to_actual_hostname', username='change_to_actual_username', password='change_to_actual_password')
         else:
             self.hostname, self.username,self.password = set_credentials()                                         # Take user input as username and password
             self.ssh = connect(hostname=self.hostname, username=self.username, password=self.password)

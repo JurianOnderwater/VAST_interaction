@@ -11,13 +11,15 @@ class Transfer:
         ######################################################################
         # Scanpath and sendpath should always end with the same folder name! #
         # Otherwise shit breaks cause Paramiko is dumb                       #
+        #                                                                    #
+        # Change credentials to actual credentials in Send's init            #
         ######################################################################
         self.scanpath = r"\test"                                # Windows
         self.sendpath = "/webhome/s2649438/public_html/test"    # Linux
 
         self.buffer = fifoBuffer(max_size=5)
         self.scanner = Scan(buffer=self.buffer)
-        self.sender = Send(buffer=self.buffer, testing=True)
+        self.sender = Send(buffer=self.buffer, LLSC=True)
         print('Transfer initiated')
 
     def transfer(self):
