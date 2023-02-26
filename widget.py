@@ -5,17 +5,28 @@ from file_sharing.transfer import Transfer
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,
-    QCheckBox,
+    # QCheckBox,
     QComboBox,
     QLabel,
     QLineEdit,
     QMainWindow,
     QPushButton,
     QSlider,
-    QProgressBar,
+    # QProgressBar,
     QVBoxLayout,
     QWidget,
 )
+'''
+Put in this following code to use the acquisition without separately starting µ-Manager.
+Just run it in if __name__ == '__main__':
+
+code:
+# from pycromanager import start_headless   #Don't put this in there ofcourse, just put it with the other imports               
+#                                                      
+# config_file = mm_app_path + "/CTR6000.cfg"  #I also included the config file in this repo for completeness' sake    
+#                                                                                     
+# start_headless(mm_app_path, config_file, timeout=5000) 
+'''
 
 # Subclass QMainWindow to customize application's main window
 class MainWindow(QMainWindow):
