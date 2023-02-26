@@ -65,7 +65,7 @@ class timedBuffer():
     ### Functions:
     - `dequeue()`: Takes the oldest item off of the queue.
     - `enqueue(item, origin)`: Puts item on top of the queue. Origin is set as optional, but \n
-         this is merely for implementation reasons. You should really set a value.
+        this is merely for implementation reasons. You should really set a value.
     """
     def __init__(self, max_size:int=5) -> None:
         self.tail          = -1                       # Indicates where the newest item in the queue is
