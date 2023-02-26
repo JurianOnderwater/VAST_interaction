@@ -18,6 +18,7 @@ from PySide6.QtWidgets import (
 )
 '''
 Put in this following code to use the acquisition without separately starting µ-Manager.
+straight from https://pycro-manager.readthedocs.io/en/latest/headless_mode.html#headless-mode
 Just run it in if __name__ == '__main__':
 
 code:
