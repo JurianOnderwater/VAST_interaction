@@ -19,14 +19,14 @@ from PySide6.QtWidgets import (
 '''
 Put in this following code to use the acquisition without separately starting µ-Manager.
 straight from https://pycro-manager.readthedocs.io/en/latest/headless_mode.html#headless-mode
-Just run it in if __name__ == '__main__':
+Just run start_headless() in if __name__ == '__main__':
 
 code:
 # from pycromanager import start_headless   #Don't put this in there ofcourse, just put it with the other imports               
-#                                                      
-# config_file = mm_app_path + "/CTR6000.cfg"  #I also included the config file in this repo for completeness' sake    
-#                                                                                     
-# start_headless(mm_app_path, config_file, timeout=5000) 
+# 
+# def start_headless()                                                     
+#   config_file = mm_app_path + "/CTR6000.cfg"  #I also included the config file in this repo for completeness' sake                                                                                     
+#   start_headless(mm_app_path, config_file, timeout=5000) 
 '''
 
 # Subclass QMainWindow to customize application's main window
@@ -38,7 +38,7 @@ class MainWindow(QMainWindow):
 
         layout = QVBoxLayout()
 
-        self.Acquirer = Acquire(path=r"\test", name="pycromanager_test")
+        self.Acquirer = Acquire(path=r"\test", name="pycromanager_test") #Change path to whichever folder you need. Last layer needs to be the same name as the one on the server.
         self.Transferer = Transfer()
         self.magnifications_list = list(mag for mag in self.Acquirer.turret_dict.keys())
         self.ticks = [50, 100, 150, 200]
