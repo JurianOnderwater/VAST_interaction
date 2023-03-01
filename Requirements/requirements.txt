@@ -1,7 +1,7 @@
 paramiko==2.10.4
 matplotlib==3.4.3
 ndtiff==1.6.1
-numpy==1.20.1
+numpy==1.24.2
 Pillow==9.4.0
 pycromanager==0.18.3
 pyserial==3.5
